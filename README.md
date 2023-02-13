@@ -7,7 +7,7 @@
 ## Install
 
 ```bash
-npm install --save state-any-where
+npm install --save stadux
 ```
 
 ## Usage
