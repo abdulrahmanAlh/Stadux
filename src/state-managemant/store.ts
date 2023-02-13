@@ -56,17 +56,24 @@ export function CreateStore<State>(init: Function) {
 export function ConfigureStore<State>(state: State) {
   return CreateStore<State>((set: SetFunction<State>) => ({
     state,
-    dispatch: <S>({ action, payloadAction, groupName }: DispatchParams<S>) => {
-      return produce(set)((store: Store<State>) => {
-        store.state[groupName] = produce(action)(store.state[groupName], {
-          payload: payloadAction,
-          type: action.name
+    dispatch: <S>(
+      param: DispatchParams<S> | ((store: Store<State>) => void)
+    ) => {
+      if (typeof param === 'object') {
+        const { action, payloadAction, groupName } = param
+        return produce(set)((store: Store<State>) => {
+          store.state[groupName] = produce(action)(store.state[groupName], {
+            payload: payloadAction,
+            type: action.name
+          })
+          return {
+            state: store.state,
+            dispatch: store.dispatch
+          }
         })
-        return {
-          state: store.state,
-          dispatch: store.dispatch
-        }
-      })
+      } else {
+        return param(store)
+      }
     }
   }))
 }

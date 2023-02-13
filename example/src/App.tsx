@@ -1,13 +1,13 @@
 import React from 'react'
 import { FetchPlanets } from './core/groups/planet'
-import { useAppSelector } from './core/store'
+import { useAppDispatch, useAppSelector } from './core/store'
 
 const App = () => {
   const { isLoading, planets } = useAppSelector((state) => state.planet)
-  // const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
 
   const handleClick = () => {
-    FetchPlanets()
+    dispatch(FetchPlanets())
   }
   return (
     <div>

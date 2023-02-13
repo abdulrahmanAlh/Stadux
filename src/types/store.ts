@@ -187,3 +187,9 @@ export type Store<State = any> = {
   state: State
   dispatch: Function
 }
+
+export type AppThunk<State = any> = (store: Store<State>) => void
+
+export interface TypedUseSelectorHook<TState> {
+  <TSelected>(selector: (state: TState) => TSelected): TSelected
+}

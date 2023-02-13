@@ -1,5 +1,5 @@
 import { MetaResponseAttributs, Planet } from '../models'
-import { createGroup, PayloadAction, store } from 'state-any-where'
+import { AppThunk, createGroup, PayloadAction } from 'state-any-where'
 import axios from 'axios'
 // import { dispatch } from '../store'
 
@@ -38,28 +38,30 @@ const { actions } = productGroup
 
 export const { toggleLoading, setError, setPlanets, setMeta } = actions
 
-export const FetchPlanets = async (page = 1) => {
-  const dispatch = store.dispatch
+export const FetchPlanets =
+  (page = 1): AppThunk =>
+  async ({ dispatch }) => {
+    // const dispatch = store.dispatch
 
-  try {
-    //Start loading
-    dispatch(toggleLoading())
+    try {
+      //Start loading
+      dispatch(toggleLoading())
 
-    //check pagnation status
-    let getUrl = 'https://swapi.dev/api/planets'
+      //check pagnation status
+      let getUrl = 'https://swapi.dev/api/planets'
 
-    const res = await axios.get(getUrl, { params: { page } })
-    const { results, ...rest } = res.data
+      const res = await axios.get(getUrl, { params: { page } })
+      const { results, ...rest } = res.data
 
-    let planets: Planet[] = results
+      let planets: Planet[] = results
 
-    dispatch(setMeta({ ...rest }))
-    dispatch(setPlanets(planets))
-  } catch (error) {
-    dispatch(setError('Error on fetch planets..'))
-  } finally {
-    dispatch(toggleLoading())
+      dispatch(setMeta({ ...rest }))
+      dispatch(setPlanets(planets))
+    } catch (error) {
+      dispatch(setError('Error on fetch planets..'))
+    } finally {
+      dispatch(toggleLoading())
+    }
   }
-}
 
 export default productGroup.reducer
