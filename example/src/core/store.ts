@@ -4,7 +4,6 @@ import {
   TypedUseSelectorHook
 } from 'state-any-where'
 import productGroup from './groups/planet'
-// const planet :Reducer = {}
 
 // create store
 const groups = CombinGroups({

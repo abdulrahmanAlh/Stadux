@@ -12,17 +12,28 @@ npm install --save stadux
 
 ## Usage
 
-```tsx
-import React, { Component } from 'react'
+```ts
+import {
+  CombinGroups,
+  ConfigureStore,
+  TypedUseSelectorHook
+} from 'state-any-where'
+import productGroup from './groups/planet'
 
-import MyComponent from 'state-any-where'
-import 'state-any-where/dist/index.css'
-
-class Example extends Component {
-  render() {
-    return <MyComponent />
+// create store
+const groups = CombinGroups({
+  reducer: {
+    planet: productGroup
   }
-}
+})
+
+type RootState = typeof groups
+
+export const { useSelector, dispatch } = ConfigureStore(groups)
+
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
+
+export const useAppDispatch = () => dispatch
 ```
 
 ## License

@@ -1,10 +1,10 @@
 {
-  "name": "stadux",
+  "name": "staux",
   "version": "1.0.0",
-  "description": "Stadux is a predictable state container for react.js apps.",
+  "description": "Staux is a predictable state container for react.js apps.",
   "author": "abdulrahmanAlh",
   "license": "MIT",
-  "repository": "abdulrahmanAlh/stadux",
+  "repository": "abdulrahmanAlh/staux",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.tsx",
