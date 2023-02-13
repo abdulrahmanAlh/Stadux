@@ -5,7 +5,6 @@ import {
   Action,
   AnyAction,
   ConfigureStoreOptions,
-  // Store,
   Group,
   GropuAttributes,
   GroupActions,
@@ -13,17 +12,15 @@ import {
   GetFunction,
   SetFunction,
   DispatchParams
-  // PayloadAction
 } from '../types'
 import { createEmitter } from './utils'
 
-//This state managment works like @redux/toolkit
+// This state managment works like @redux/toolkit
+export let store: Store
 
 export function CreateStore<State>(init: Function) {
   // create an emitter
   const emitter = createEmitter()
-
-  let store: Store<State>
 
   const get: GetFunction<State> = () => store
   const set: SetFunction<State> = (op) => (
@@ -44,21 +41,24 @@ export function CreateStore<State>(init: Function) {
     return store
   }
 
-  const useSelector = (filter?: (state: State) => any) => {
+  function useSelector<TState = unknown, Selected = unknown>(
+    filter?: (state: TState) => Selected
+  ): Selected {
     const { state } = useStore()
 
-    return filter ? filter(state) : state
+    return filter ? filter(state as any) : (state as any)
   }
+
   return { useSelector, useStore, dispatch: store.dispatch }
 }
 
-//create dispatch function and state
+// create dispatch function and state
 export function ConfigureStore<State>(state: State) {
   return CreateStore<State>((set: SetFunction<State>) => ({
     state,
     dispatch: <S>({ action, payloadAction, groupName }: DispatchParams<S>) => {
       return produce(set)((store: Store<State>) => {
-        store.state[groupName] = action(store.state[groupName], {
+        store.state[groupName] = produce(action)(store.state[groupName], {
           payload: payloadAction,
           type: action.name
         })
@@ -72,10 +72,10 @@ export function ConfigureStore<State>(state: State) {
 }
 
 // Group contents his state...
-export function createGroup<State>(
+export function createGroup<State, A = any>(
   attributes: GropuAttributes<State>
-): Group<State> {
-  const actions: GroupActions<State> = {}
+): Group<State, A> {
+  const actions: GroupActions<State, any> = {}
   Object.keys(attributes.reducers).forEach((key: string) => {
     actions[key] = <P>(payload?: P) => ({
       payloadAction: payload as P,
@@ -83,7 +83,7 @@ export function createGroup<State>(
       groupName: attributes.name
     })
   })
-  const group: Group<State> = {
+  const group: Group<State, A> = {
     actions,
     state: attributes.initialState,
     name: attributes.name,
@@ -107,7 +107,7 @@ export function createGroup<State>(
 // }
 
 // Combin all groups to make global state
-export function CombinGroups<S = any, A extends Action = AnyAction>(
+export function CombinGroups<S, A extends Action = AnyAction>(
   attributes: ConfigureStoreOptions<S, A>
 ): S {
   const { reducer } = attributes

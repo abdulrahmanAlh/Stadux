@@ -5,16 +5,16 @@ export interface GropuAttributes<S> {
   initialState: S
   name: string
 }
-export interface GroupActions<S> {
-  [K: string]: <P>(payload?: P) => {
+export type GroupActions<S, A = any> = {
+  [K in keyof A]: <P>(payload?: P) => {
     payloadAction: P
     action: CaseReducer<S, PayloadAction<P>>
     groupName: string
   }
 }
 
-export interface Group<S> {
-  actions: GroupActions<S>
+export interface Group<S, A> {
+  actions: GroupActions<S, A>
   //    Record<
   //     string,
   //     (payload?: any) => {
@@ -23,8 +23,10 @@ export interface Group<S> {
   //       groupName: string
   //     }
   //   >
-  state: S
-  reducer: Reducer<S>
+  state: {
+    [Property in keyof S]: S[Property]
+  }
+  reducer: Reducer<this['state']>
   name: string
 }
 

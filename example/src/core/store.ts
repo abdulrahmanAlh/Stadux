@@ -9,12 +9,14 @@ const groups = CombinGroups({
   }
 })
 
-// type RootState = typeof groups
+type RootState = typeof groups
 
 export const { useSelector, dispatch } = ConfigureStore(groups)
 
-// export interface TypedUseSelectorHook<TState> {
-//   <TSelected>(selector: (state: TState) => TSelected): TSelected;
-// }
+export interface TypedUseSelectorHook<TState> {
+  <TSelected>(selector: (state: TState) => TSelected): TSelected
+}
 
-// export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
+
+export const useAppDispatch = () => dispatch

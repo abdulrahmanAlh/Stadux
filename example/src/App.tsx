@@ -1,11 +1,28 @@
 import React from 'react'
-import { useSelector } from './core/store'
+import { FetchPlanets } from './core/groups/planet'
+import { useAppSelector } from './core/store'
 
 const App = () => {
-  const { isLoading } = useSelector((state) => state.planet)
-  console.log(isLoading)
+  const { isLoading, planets } = useAppSelector((state) => state.planet)
+  // const dispatch = useAppDispatch()
 
-  return <div>Test</div>
+  const handleClick = () => {
+    FetchPlanets()
+  }
+  return (
+    <div>
+      <button onClick={handleClick}>Test</button>
+      {isLoading ? (
+        'loading'
+      ) : (
+        <div style={{ display: 'flex', gap: '10px' }}>
+          {planets.map(({ name }) => (
+            <div key={name}>{name}</div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
 }
 
 export default App

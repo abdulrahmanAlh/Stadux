@@ -1,4 +1,4 @@
-// import { Draft } from 'immer'
+import { Draft } from 'immer'
 
 /**
  * A store is an object that holds the application's state tree.
@@ -168,7 +168,7 @@ export type PayloadAction<
       })
 
 export type CaseReducer<S = any, A extends Action = AnyAction> = (
-  state: S,
+  state: Draft<S>,
   action: A
 ) => S | void
 
@@ -183,7 +183,7 @@ export type SetFunction<State> = (
 ) => void
 export type GetFunction<State> = () => Store<State>
 
-export type Store<State> = {
+export type Store<State = any> = {
   state: State
   dispatch: Function
 }
