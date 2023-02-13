@@ -1,13 +1,13 @@
-# state-any-where
+# Staux
 
-> Made with create-react-library
+> Staux is a predictable state container for react.js apps.
 
-[![NPM](https://img.shields.io/npm/v/state-any-where.svg)](https://www.npmjs.com/package/state-any-where) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/staux.svg)](https://www.npmjs.com/package/staux) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save stadux
+npm install --save staux
 ```
 
 ## Usage
