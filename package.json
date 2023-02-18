@@ -1,6 +1,6 @@
 {
   "name": "staux",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Staux is a predictable state container for react.js apps.",
   "author": "abdulrahmanAlh",
   "license": "MIT",
