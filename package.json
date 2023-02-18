@@ -59,5 +59,12 @@
   },
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "React",
+    "State-Management",
+    "immer",
+    "Typescript",
+    "immutable"
   ]
 }

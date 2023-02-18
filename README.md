@@ -13,11 +13,7 @@ npm install --save staux
 ## Usage
 
 ```ts
-import {
-  CombinGroups,
-  ConfigureStore,
-  TypedUseSelectorHook
-} from 'state-any-where'
+import { CombinGroups, ConfigureStore, TypedUseSelectorHook } from 'staux'
 import productGroup from './groups/planet'
 
 // create store

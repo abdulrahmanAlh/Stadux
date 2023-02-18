@@ -1,7 +1,6 @@
 import { MetaResponseAttributs, Planet } from '../models'
-import { AppThunk, createGroup, PayloadAction } from 'state-any-where'
+import { AppThunk, createGroup, PayloadAction } from 'staux'
 import axios from 'axios'
-// import { dispatch } from '../store'
 
 interface InitState {
   isLoading: boolean

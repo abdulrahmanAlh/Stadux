@@ -1,5 +1,5 @@
 {
-  "name": "state-any-where-example",
+  "name": "staux-example",
   "homepage": ".",
   "version": "0.0.0",
   "private": true,
@@ -21,7 +21,7 @@
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts",
-    "state-any-where": "link:..",
+    "staux": "link:..",
     "typescript": "link:../node_modules/typescript"
   },
   "devDependencies": {
